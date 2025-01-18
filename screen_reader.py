@@ -22,30 +22,43 @@ print(f"Screen size: {screen_width}x{screen_height}")
 open(output_txt_file, "w").write("") 
 
 # Function to get user input for tier, enchantment, and quality
+# Function to get user input for tier, enchantment, quality, and city
 def get_user_input():
     print("\n--- Item Selection ---")
+    
+    # Tier input
     tier = input("Enter item tier (4-8): ")
     while tier not in ["4", "5", "6", "7", "8"]:
         print("Invalid input. Please enter a number between 4 and 8.")
         tier = input("Enter item tier (4-8): ")
 
+    # Enchantment input
     enchantment = input("Enter enchantment level (0-4): ")
     while enchantment not in ["0", "1", "2", "3", "4"]:
         print("Invalid input. Please enter a number between 0 and 4.")
         enchantment = input("Enter enchantment level (0-4): ")
 
+    # Quality input
     quality = input("Enter item quality (0-4): ")
     while quality not in ["0", "1", "2", "3", "4"]:
-        print("Invalid input. Please enter a number between 0 and 5.")
+        print("Invalid input. Please enter a number between 0 and 4.")
         quality = input("Enter item quality (0-4): ")
 
-    print(f"\nSelected Tier: {tier}, Enchantment: {enchantment}, Quality: {quality}")
+    # City selection input
+    print("\nSelect city (L for Lymhurst, M for Martlock, etc.): ")
+    city = input("Enter city code: ")
+    while city not in ["L", "M", "F", "B", "C", "T"]:  # Add more city codes as needed
+        print("Invalid input. Please enter a valid city code.")
+        city = input("Enter city code (L, M, F, B, C, T): ")
+
+    print(f"\nSelected Tier: {tier}, Enchantment: {enchantment}, Quality: {quality}, City: {city}")
 
     # Append the user input to the output file
     with open(output_txt_file, "a") as file:
-        file.write(f"Item Details - Tier: {tier}, Enchantment: {enchantment}, Quality: {quality}\n")
+        file.write(f"Item Details - Tier: {tier}, Enchantment: {enchantment}, Quality: {quality}, City: {city}\n")
 
-    return tier, enchantment, quality
+    return tier, enchantment, quality, city
+
 
 # Function to capture market prices using Tesseract
 def capture_market_prices():
@@ -130,7 +143,7 @@ def listen_for_keys():
 # Main function
 def main():
     # Get tier, enchantment, and quality from user
-    tier, enchantment, quality = get_user_input()
+    tier, enchantment, quality, city  = get_user_input()
 
     print("\nPress 'Alt+T' to start/stop market price reading.")
     print("Press 'Alt+Q' to quit the application.")
